@@ -1,16 +1,32 @@
 class Library
+
+    attr_reader :dictionary
+    
     def initialize
-        @dictionary = File.new("input.txt")
+        @dictionary = []
+        file = File.new("input.txt")
+
+        file.each_line do |word|
+            @dictionary << word.chomp
+        end
         @boxes = find_boxes
     end
 
     def find_boxes
         arr = []
-        @dictionary.each_line do |word1|
-            @dictionary.each_line do |word2|
-                arr = [word1, word2] if compare_words(word1,word2)
-                break if arr.length
+        i = 0
+        while i < @dictionary.length
+            j=i+1
+            while j < @dictionary.length
+                p word1 = @dictionary[i]
+                p word2 = @dictionary[j]
+                if compare_words(word1,word2)
+                     arr = [word1, word2] 
+                end
+                break if arr.length >1
+                j+=1
             end
+            i+=1
         end
         arr
     end
